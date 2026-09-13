@@ -9,14 +9,14 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                echo 'Забираем код с GitHub...'
+                echo 'Забираем код с GitHub'
                 checkout scm
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                echo 'Собираем Docker образ...'
+                echo 'Docker образ собирвется'
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                 sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest"
             }
@@ -24,7 +24,7 @@ pipeline {
 
         stage('Test Image') {
             steps {
-                echo 'Проверяем, что образ создался...'
+                echo 'Проверка созданного'
                 sh "docker images | grep ${IMAGE_NAME}"
             }
         }
@@ -39,10 +39,10 @@ pipeline {
 
     post {
         success {
-            echo '✅ Пайплайн успешно завершен!'
+            echo 'Пайплайн успешно завершен!'
         }
         failure {
-            echo '❌ Пайплайн упал. Проверь логи!'
+            echo 'Пайплайн НЕ завершен. Что в логах?'
         }
     }
 }
