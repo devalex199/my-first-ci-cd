@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Building Docker Image') {
             steps {
                 echo 'Docker образ собирвется'
                 sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
@@ -22,16 +22,16 @@ pipeline {
             }
         }
 
-        stage('Test Image') {
+        stage('Test builded Image') {
             steps {
-                echo 'Проверка созданного'
+                echo 'Созданный образ:'
                 sh "docker images | grep ${IMAGE_NAME}"
             }
         }
 
         stage('Cleanup') {
             steps {
-                echo 'Чистим старые образы (экономим место на диске)...'
+                echo 'Чистим старые образы (для экономии места на диске)'
                 sh "docker image prune -f"
             }
         }
